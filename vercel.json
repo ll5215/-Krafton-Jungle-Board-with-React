@@ -1,8 +1,7 @@
 {
     "build": {
       "env": {
-        "DATABASE_URL": "@POSTGRES_URL", 
-        "PRISMA_CLIENT_RESET": "true"
+        "DATABASE_URL": "@POSTGRES_URL"
       }
     }
   }
