@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { WritingButton, WritingCardDescription, WritingCardTitle, WritingCardWrap } from "./styled";
 import Link from "next/link";
 
