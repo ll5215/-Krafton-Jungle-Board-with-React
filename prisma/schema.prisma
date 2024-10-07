@@ -14,16 +14,23 @@ generator client {
 }
 
 model User {
-  id    Int     @id @default(autoincrement()) // 기본 키 설정
-  name  String
-  email String  @unique
-  posts Post[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  username  String   @unique  // 새로운 아이디 필드 추가
+  password  String
+  createdAt DateTime @default(now())
+
+  posts     Post[]   // 한 명의 유저는 여러 포스트를 가질 수 있음
 }
 
+
 model Post {
-  id      Int     @id @default(autoincrement())
+  id      Int      @id @default(autoincrement())
   title   String
   content String
   userId  Int
-  user    User    @relation(fields: [userId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])  // User와의 관계
 }
+
+

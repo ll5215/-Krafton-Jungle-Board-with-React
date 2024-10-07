@@ -1,3 +1,4 @@
+import { defaultTransition } from "@/app/css";
 import styled from "styled-components";
 
 export const LoginPageBody = styled.div`
@@ -10,10 +11,11 @@ export const LoginPageBody = styled.div`
 
 export const LoginContainer = styled.div`
   display: flex;
+  gap: 60px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  width: 800px;
+  width: 840px;
   height: 400px;
   align-items: center;
 `;
@@ -104,6 +106,7 @@ export const LoginButton = styled.button`
   &:hover {
     background-color: #4e61e8;
   }
+  ${defaultTransition}
 `;
 
 export const LoginLinkContainer = styled.div`
