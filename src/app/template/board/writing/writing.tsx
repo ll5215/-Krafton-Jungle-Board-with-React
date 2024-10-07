@@ -20,7 +20,7 @@ export default function BoardWritingTemplate() {
                     layout="fill"
                     objectFit="cover"
                 />
-            </BackgroundImageContainer>
+            </BackgroundImageContainer> 
 
             <TitleSection>
                 <h1>게시판 작성하기</h1>
