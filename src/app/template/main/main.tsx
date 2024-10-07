@@ -1,55 +1,19 @@
 import Pagination from "@/component/pagination";
 import PostCard from "@/component/postcard";
 import Image from "next/image";
-import { MainContainer, Header, Logo, Nav, NavButton, TitleSection, CategorySection, CategoryButton, PostSection, BackgroundImageContainer, MainBottom } from "./styled";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { MainContainer, TitleSection, CategorySection, CategoryButton, PostSection, BackgroundImageContainer, MainBottom } from "./styled";
+import WritingCard from "@/component/postcard/writing-card";
+import HeaderComponent from "@/component/header";
+import useAuth from "@/hooks/useAuth";
 
 
 export default function MainTemplate() {
-    const router = useRouter();
-    
-    useEffect(() => {
-        const checkAuth = async () => {
-          const response = await fetch('/api/check-auth', {
-            method: 'GET',
-            credentials: 'include', // 쿠키를 포함시킴
-          });
-    
-          if (!response.ok) {
-            // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
-            router.push('/');
-          }
-        };
-    
-        checkAuth();
-      }, [router]);
 
-    const handleLogout = async () => {
-        // 서버에 로그아웃 요청 보내기
-        const response = await fetch("/api/logout", {
-            method: "POST",
-            credentials: "include", // 쿠키를 포함시킴
-        });
-
-        if (response.ok) {
-            // 로그아웃 성공 시 로그인 페이지로 리다이렉트
-            router.push("/");
-        } else {
-            alert("로그아웃에 실패했습니다.");
-        }
-    };
-
+    useAuth();
+    
     return (
         <MainContainer>
-            <Header>
-                <Logo>LOGO</Logo>
-                <Nav>
-                    <NavButton>MY PAGE</NavButton>
-                    <NavButton onClick={handleLogout}>LOGOUT</NavButton>
-                </Nav>
-            </Header>
-
+            <HeaderComponent />
             <BackgroundImageContainer>
                 <Image
                     src="/images/main_image.png" 
@@ -78,7 +42,7 @@ export default function MainTemplate() {
                     <PostCard />
                     <PostCard />
                     <PostCard />
-                    <PostCard />
+                    <WritingCard />
                 </PostSection>
                 <Pagination />
             </MainBottom>
