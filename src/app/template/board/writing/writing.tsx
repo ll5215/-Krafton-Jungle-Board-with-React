@@ -10,7 +10,7 @@ export default function BoardWritingTemplate() {
 
     useAuth();
 
-    return (
+    return ( 
         <MainContainer>
             <HeaderComponent />
             <BackgroundImageContainer>
