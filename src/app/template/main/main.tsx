@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import Pagination from "@/component/pagination";
 import PostCard from "@/component/postcard";
-import Image from "next/image";
-import { MainContainer, TitleSection, CategorySection, CategoryButton, PostSection, BackgroundImageContainer, MainBottom } from "./styled";
+import { MainContainer, TitleSection, CategorySection, CategoryButton, PostSection, MainBottom } from "./styled";
 import WritingCard from "@/component/postcard/writing-card";
 import HeaderComponent from "@/component/header";
 import useAuth from "@/hooks/useAuth";
+import BackgroundImageComponent from '@/component/background';
 
 interface Post {
   id: number;
@@ -49,15 +49,7 @@ export default function MainTemplate() {
   return (
     <MainContainer>
       <HeaderComponent />
-      <BackgroundImageContainer>
-        <Image
-          src="/images/main_image.png" 
-          alt="Main background image"
-          layout="fill"
-          objectFit="cover"
-        />
-      </BackgroundImageContainer>
-
+    <BackgroundImageComponent />
       <TitleSection>
         <h1>게시판 둘러보기</h1>
         <p>여기도 뭔가 글씨를 쓰면 이쁠것 같은데 뭐라고 써야할지 잘 <br></br>모르겠어요 그래서 아무말이나 일단 적는중입니다</p>
@@ -65,11 +57,12 @@ export default function MainTemplate() {
       <MainBottom>
         <CategorySection>
           <CategoryButton>전체</CategoryButton>
-          <CategoryButton>종류 1</CategoryButton>
-          <CategoryButton>종류 2</CategoryButton>
-          <CategoryButton>종류 3</CategoryButton>
-          <CategoryButton>종류 4</CategoryButton>
-          <CategoryButton>종류 5</CategoryButton>
+          <CategoryButton>일상</CategoryButton>
+          <CategoryButton>취미</CategoryButton>
+          <CategoryButton>공부</CategoryButton>
+          <CategoryButton>문화</CategoryButton>
+          <CategoryButton>여행</CategoryButton>
+          <CategoryButton>기타</CategoryButton>
         </CategorySection>
         <PostSection>
           {currentPosts.length > 0 ? (
@@ -87,8 +80,6 @@ export default function MainTemplate() {
           )}
           <WritingCard />
         </PostSection>
-
-        {/* 페이지네이션 */}
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}

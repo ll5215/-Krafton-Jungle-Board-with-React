@@ -13,12 +13,13 @@ import {
   WritingFormCCategoryButton,
   WritingPageBottom,
 } from "./styled";
-import { MainContainer, BackgroundImageContainer, TitleSection } from "../../main/styled";
+import { MainContainer, TitleSection } from "../../main/styled";
 import Link from "next/link";
 import HeaderComponent from "@/component/header";
 import useAuth from "@/hooks/useAuth";
 import { createPost } from "@/app/lib/actions/post";
 import { validateCategories } from "@/app/lib/utils/validation";
+import BackgroundImageComponent from "@/component/background";
 
 interface FormData {
   title: string;
@@ -64,14 +65,7 @@ export default function BoardWritingTemplate() {
   return (
     <MainContainer>
       <HeaderComponent />
-      <BackgroundImageContainer>
-        <Image
-          src="/images/main_image.png"
-          alt="Main background image"
-          layout="fill"
-          objectFit="cover"
-        />
-      </BackgroundImageContainer>
+    <BackgroundImageComponent />
 
       <TitleSection>
         <h1>게시판 작성하기</h1>

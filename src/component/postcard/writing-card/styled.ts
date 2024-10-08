@@ -5,6 +5,7 @@ export const WritingCardWrap = styled.div`
     padding: 56px 24px;
     background-color: white;
     width: 300px;
+    height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;

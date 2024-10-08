@@ -5,6 +5,7 @@ export const Card = styled.div`
     padding: 32px 24px;
     background-color: white;
     width: 300px;
+    height: 250px;
 `;
 
 export const CategoryTag = styled.div`
@@ -15,6 +16,12 @@ export const CategoryTag = styled.div`
 export const Title = styled.h3`
     font-size: 18px;
     margin-top: 8px;
+    min-height: 44px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 `;
 
 export const Description = styled.p`
@@ -22,6 +29,12 @@ export const Description = styled.p`
     font-size: 14px;
     line-height: 20px;
     margin-top: 16px;
+    min-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 `;
 
 export const CommentCount = styled.div`

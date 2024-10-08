@@ -42,15 +42,6 @@ export const NavButton = styled.button`
     ${defaultTransition}
 `;
 
-export const BackgroundImageContainer = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 300px;
-    z-index: -1;
-`;
-
 export const TitleSection = styled.div`
     text-align: center;
     margin-top: 40px;
@@ -97,5 +88,6 @@ export const PostSection = styled.div`
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
-    grid-template-rows: repeat(2, auto); /* 두 줄로 제한 */
+    grid-template-rows: repeat(2, auto);
+    min-height: 560px;
 `;
