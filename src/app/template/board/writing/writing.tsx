@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState, MouseEvent } from "react";
 import {
