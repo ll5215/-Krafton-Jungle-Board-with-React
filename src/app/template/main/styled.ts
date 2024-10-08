@@ -96,4 +96,6 @@ export const PostSection = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    padding: 20px;
+    grid-template-rows: repeat(2, auto); /* 두 줄로 제한 */
 `;

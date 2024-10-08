@@ -1,14 +1,22 @@
+// component/postcard.tsx
+
 import { Card, CategoryTag, Title, Description, CommentCount } from "./styled";
 
-export default function PostCard() {
+interface PostCardProps {
+    category: string;
+    title: string;
+    content: string;
+    commentCount: number; // 댓글 수는 지금은 0으로 설정
+  }
+  
+  export default function PostCard({ category, title, content, commentCount }: PostCardProps) {
     return (
-        <Card>
-            <CategoryTag>무슨 종류인가</CategoryTag>
-            <Title>이건 이 게시물의 제목 이건 첫줄이고 이건 둘쨰줄입니다.</Title>
-            <Description>
-            이건 이 게시물의 내용이다. 내용도 마찬가지로 첫줄과 둘쨰줄이 있다. 필요하다면 셋째줄까지도 있다. 하지만 여기가 끝이여서.
-            </Description>
-            <CommentCount>3 Comments</CommentCount>
-        </Card>
+      <Card>
+        <CategoryTag>{category}</CategoryTag>
+        <Title>{title}</Title>
+        <Description>{content}</Description>
+        <CommentCount>{commentCount} Comments</CommentCount>
+      </Card>
     );
-}
+  }
+  

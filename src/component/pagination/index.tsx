@@ -1,14 +1,41 @@
+// Pagination.tsx
+
 import { PaginationContainer, PageButton, PageNumber, PageNumberWrap } from "./styled";
 
-export default function Pagination() {
-    return (
-        <PaginationContainer>
-            <PageButton>이전</PageButton>
-            <PageNumberWrap>
-                <PageNumber>1</PageNumber>
-                <PageNumber>2</PageNumber>
-            </PageNumberWrap>
-            <PageButton>다음</PageButton>
-        </PaginationContainer>
-    );
+interface PaginationProps {
+  totalPages: number;
+  currentPage: number;
+  paginate: (pageNumber: number) => void;
+}
+
+export default function Pagination({ totalPages, currentPage, paginate }: PaginationProps) {
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+  return (
+    <PaginationContainer>
+      <PageButton
+        onClick={() => paginate(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        이전
+      </PageButton>
+      <PageNumberWrap>
+        {pageNumbers.map((number) => (
+          <PageNumber
+            key={number}
+            onClick={() => paginate(number)}
+            isActive={number === currentPage}
+          >
+            {number}
+          </PageNumber>
+        ))}
+      </PageNumberWrap>
+      <PageButton
+        onClick={() => paginate(currentPage + 1)}
+        disabled={currentPage === totalPages}
+      >
+        다음
+      </PageButton>
+    </PaginationContainer>
+  );
 }

@@ -1,6 +1,7 @@
+import { defaultTransition } from "@/app/css";
 import styled from "styled-components";
 
-export const WritingPageBottom = styled.div`
+export const WritingPageBottom = styled.form`
     background-color: white;
     padding: 40px 60px;
     margin-top: 56px;
@@ -22,20 +23,23 @@ export const WritingFormCategorySection = styled.div`
 
 `;
 
-export const WritingFormCCategoryButton = styled.button`
-    padding: 8px 18px;
-    color: #A8B1CE;
-    background-color: white;
-    outline: none;
-    border: 1px solid #A8B1CE;
-    border-radius: 4px;
-    font-weight: 800;
-    cursor: pointer;
+export const WritingFormCCategoryButton = styled.button<{ selected: boolean }>`
+  padding: 8px 18px;
+  color: ${(props) => (props.selected ? "#fff" : "#000")};
+  background-color: ${(props) => (props.selected ? "#696E82" : "#fff")};
+  outline: none;
+  border: 1px solid #A8B1CE;
+  border-radius: 4px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-
+    background-color: ${(props) => (props.selected ? "#9DA2B8" : "#e2e2e2")};
+    color: ${(props) => (props.selected ? "#fff" : "#000")};
   }
 `;
+
 
 export const FormLabel = styled.div`
     font-size: 24px;
@@ -87,7 +91,8 @@ export const CancelButton = styled.button`
     cursor: pointer;
 
   &:hover {
-
+    background-color: #e2e2e2;
+    ${defaultTransition}
   }
 `;
 
@@ -102,6 +107,7 @@ export const SubmitButton = styled.button`
     cursor: pointer;
 
   &:hover {
-
+    background-color: #4e61e8;
+    ${defaultTransition}
   }
 `;
