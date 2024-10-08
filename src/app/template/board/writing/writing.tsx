@@ -17,7 +17,6 @@ import Link from "next/link";
 import HeaderComponent from "@/component/header";
 import useAuth from "@/hooks/useAuth";
 import { createPost } from "@/app/lib/actions/post";
-import { validateCategories } from "@/app/lib/utils/validation";
 import BackgroundImageComponent from "@/component/background";
 
 interface FormData {
@@ -28,31 +27,29 @@ interface FormData {
 export default function BoardWritingTemplate() {
   useAuth();
 
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // 카테고리를 하나만 선택하도록 변경
   const [categoryError, setCategoryError] = useState<string | null>(null);
   const categories = ["일상", "취미", "공부", "문화", "여행", "기타"];
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-  const toggleCategory = (e: MouseEvent, category: string) => {
-    e.preventDefault();  // 카테고리 클릭 시 폼이 제출되지 않도록 기본 동작 방지
-    if (selectedCategories.includes(category)) {
-      setSelectedCategories(selectedCategories.filter(c => c !== category));
+  const selectCategory = (e: MouseEvent, category: string) => {
+    e.preventDefault(); // 카테고리 클릭 시 폼이 제출되지 않도록 기본 동작 방지
+    if (selectedCategory === category) {
+      setSelectedCategory(null); // 같은 카테고리 클릭 시 선택 해제
     } else {
-      setSelectedCategories([...selectedCategories, category]);
-    }
-    if (selectedCategories.length > 0) {
+      setSelectedCategory(category); // 새로운 카테고리 선택
       setCategoryError(null);
     }
   };
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    if (!validateCategories(selectedCategories)) {
-      setCategoryError("카테고리를 최소 하나 이상 선택해야 합니다.");
+    if (!selectedCategory) {
+      setCategoryError("카테고리를 선택해주세요");
       return;
     }
 
-    const result = await createPost(data.title, data.content, selectedCategories.join(", "));
+    const result = await createPost(data.title, data.content, selectedCategory);
     if (result.success) {
       alert(result.message);
       window.location.href = "/main";
@@ -64,10 +61,10 @@ export default function BoardWritingTemplate() {
   return (
     <MainContainer>
       <HeaderComponent />
-    <BackgroundImageComponent />
+      <BackgroundImageComponent />
 
       <TitleSection>
-        <h1>게시판 작성하기</h1>
+        <h1>게시글 작성하기</h1>
         <p>여기도 뭔가 글씨를 쓰면 이쁠 것 같은데 뭐라고 써야할지 잘 모르겠어요.</p>
       </TitleSection>
 
@@ -78,12 +75,11 @@ export default function BoardWritingTemplate() {
               {categories.map((category) => (
                 <WritingFormCCategoryButton
                     key={category}
-                    onClick={(e) => toggleCategory(e, category)}
-                    selected={selectedCategories.includes(category)} 
-                    >
+                    onClick={(e) => selectCategory(e, category)}
+                    selected={selectedCategory === category} // 선택된 카테고리 스타일 적용
+                >
                     {category}
                 </WritingFormCCategoryButton>
-
               ))}
             </WritingFormCategorySection>
             {categoryError && <p style={{ color: "red" }}>{categoryError}</p>}

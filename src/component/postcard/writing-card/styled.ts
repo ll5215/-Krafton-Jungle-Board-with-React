@@ -1,3 +1,4 @@
+import { defaultTransition } from "@/app/css";
 import styled from "styled-components";
 
 export const WritingCardWrap = styled.div`
@@ -23,6 +24,7 @@ export const WritingButton = styled.button`
     margin-top: 8px;
 
     &:hover{
+        ${defaultTransition}
         background-color: #2B308B;
         color: white;
     }

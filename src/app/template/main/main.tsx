@@ -19,6 +19,7 @@ export default function MainTemplate() {
   
   const [posts, setPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1); // 현재 페이지
+  const [selectedCategory, setSelectedCategory] = useState<string>("전체");
   const postsPerPage = 5; // 한 페이지에 표시할 게시물 수
 
   // 클라이언트에서 데이터 불러오기
@@ -32,12 +33,15 @@ export default function MainTemplate() {
     fetchPosts();
   }, []);
 
+  const filteredPosts = selectedCategory === "전체"
+  ? posts
+  : posts.filter(post => post.category === selectedCategory);
+
   // 페이지당 표시할 게시물 계산
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
   // 페이지 변경 함수
   const paginate = (pageNumber: number) => {
@@ -45,6 +49,12 @@ export default function MainTemplate() {
       setCurrentPage(pageNumber);
     }
   };
+
+  //카테고리 변경 함수
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+  }
 
   return (
     <MainContainer>
@@ -56,19 +66,20 @@ export default function MainTemplate() {
       </TitleSection>
       <MainBottom>
         <CategorySection>
-          <CategoryButton>전체</CategoryButton>
-          <CategoryButton>일상</CategoryButton>
-          <CategoryButton>취미</CategoryButton>
-          <CategoryButton>공부</CategoryButton>
-          <CategoryButton>문화</CategoryButton>
-          <CategoryButton>여행</CategoryButton>
-          <CategoryButton>기타</CategoryButton>
+            {["전체", "일상", "취미", "공부","문화", "여행", "기타"].map((category) => (
+          <CategoryButton
+                key={category}
+                onClick={() => handleCategoryChange(category)}
+                selected = {selectedCategory === category}
+          >{category}</CategoryButton>
+            ))}
         </CategorySection>
         <PostSection>
           {currentPosts.length > 0 ? (
             currentPosts.map((post) => (
               <PostCard
                 key={post.id}
+                id={post.id}
                 category={post.category}
                 title={post.title}
                 content={post.content}

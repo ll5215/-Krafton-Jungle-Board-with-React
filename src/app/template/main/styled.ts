@@ -73,12 +73,13 @@ export const CategorySection = styled.div`
     margin-bottom: 30px;
 `;
 
-export const CategoryButton = styled.button`
-    color: #C2C2C2;
+export const CategoryButton = styled.button<{selected : boolean}>`
     font-weight: 500;
     font-size: 16px;
     background-color: transparent;
     border: none;
+    border-bottom: ${(props) => (props.selected ? "1px solid #696E82" : "#none")};
+    color: ${(props) => (props.selected ? "#696E82" : "#C2C2C2")};
     padding: 10px 20px;
     cursor: pointer;
 `;
