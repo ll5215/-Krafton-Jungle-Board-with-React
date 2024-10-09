@@ -111,7 +111,7 @@ export const LoginButton = styled.button`
 
 export const LoginLinkContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 10px;
   font-size: 12px;
   color: #808080;

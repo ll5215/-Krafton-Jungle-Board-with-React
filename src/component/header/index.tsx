@@ -1,6 +1,7 @@
 "use client"
 
 import { Header, Logo, Nav, NavButton } from "@/app/template/main/styled";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function HeaderComponent() {
@@ -24,9 +25,10 @@ export default function HeaderComponent() {
     
     return (
         <Header>
-        <Logo>LOGO</Logo>
+        <Link href="/main">
+            <Logo>LOGO</Logo>
+        </Link>
         <Nav>
-            <NavButton>MY PAGE</NavButton>
             <NavButton onClick={handleLogout}>LOGOUT</NavButton>
         </Nav>
     </Header>

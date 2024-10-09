@@ -31,6 +31,7 @@ import {
 import { SubmitHandler, useForm } from "react-hook-form";
 import { formatDate } from "@/app/lib/utils/formatDate";
 import useAuth from "@/hooks/useAuth";
+import SkeletonBoardDetail from "@/component/skeleton/board-detail";
 
 interface Params {
   id: number;
@@ -152,7 +153,7 @@ export default function BoardDetailTemplate() {
       </TitleSection>
       
       {isLoading ? (
-        <div>로딩 중...</div> // 로딩 중일 때 보여줄 내용
+        <SkeletonBoardDetail /> // 로딩 중일 때 보여줄 내용
       ) : error ? (
         <div>{error}</div> // 오류 발생 시 보여줄 내용
       ) : post ? (

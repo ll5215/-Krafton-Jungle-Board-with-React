@@ -23,9 +23,11 @@ import {
 export default function LoginTemplate() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // 로딩 상태 관리
   const router = useRouter();
 
   const handleLogin = async () => {
+    setLoading(true); // 로그인 시작 시 로딩 상태로 설정
     const response = await fetch("/api/login", {
       method: "POST",
       headers: {
@@ -40,8 +42,8 @@ export default function LoginTemplate() {
     } else {
       alert("로그인에 실패했습니다.");
     }
+    setLoading(false); // 로그인 완료 후 로딩 상태 해제
   };
-  
 
   return (
     <LoginPageBody>
@@ -69,10 +71,19 @@ export default function LoginTemplate() {
             />
           </LoginInputContainer>
           <LoginButtonContainer>
-            <LoginButton onClick={handleLogin}>로그인</LoginButton>
+            <LoginButton
+              onClick={handleLogin}
+              disabled={loading} // 로딩 중이면 버튼 비활성화
+              style={{
+                backgroundColor: loading ? "#90ABFF" : "", // 로딩 중일 때 버튼 색상 변경
+                color: loading ? "#C7D5FF" : "", // 로딩 중일 때 글자 색상 변경
+                cursor: loading ? "not-allowed" : "pointer", // 로딩 중일 때 커서 변경
+              }}
+            >
+              {loading ? "..." : "로그인"} {/* 로딩 중일 때 텍스트 변경 */}
+            </LoginButton>
             <LoginLinkContainer>
-              <LoginLink>비밀번호 찾기</LoginLink>
-              <LoginLinkDivider>|</LoginLinkDivider>
+              <LoginLink>회원이 아니신가요?</LoginLink>
               <Link href="/signup">
                 <LoginLink>회원가입</LoginLink>
               </Link>
