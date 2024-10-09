@@ -222,12 +222,14 @@ export default function BoardDetailTemplate() {
             <BoardDetailContentText>{post.content}</BoardDetailContentText>
             <BoardDetailContentBottom>
               <BoardDetailContentCommentCount>{post._count.comments} comments</BoardDetailContentCommentCount>
-              {getCookie("user") === String(post.user.id) && (
-                <BoardDetailContentBottomRight>
-                  <BoardDetailContentWriter>{post.user.username}</BoardDetailContentWriter>
-                  <BoardDetailContentDelete onClick={handleDeletePost}>삭제</BoardDetailContentDelete> {/* 삭제 버튼 */}
-                </BoardDetailContentBottomRight>
-              )}
+              <BoardDetailContentBottomRight>
+                <BoardDetailContentWriter>{post.user.username}</BoardDetailContentWriter>
+              
+                {getCookie("user") === String(post.user.id) && (
+                  <BoardDetailContentDelete onClick={handleDeletePost}>삭제</BoardDetailContentDelete>
+                )}
+              </BoardDetailContentBottomRight>
+
             </BoardDetailContentBottom>
           </BoardDetailContent>
 
