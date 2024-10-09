@@ -18,6 +18,7 @@ import {
   SignupTitle,
 } from "./styled";
 import { useRouter } from "next/navigation";  // 클라이언트 측 라우터 사용
+import { useAlert } from "@/component/comfirm-popup";
 
 // 폼 데이터 타입 정의
 interface SignupFormData {
@@ -30,6 +31,7 @@ interface SignupFormData {
 export default function SignupTemplate() {
   const { register, handleSubmit, formState: { errors } } = useForm<SignupFormData>();
   const router = useRouter();  // useRouter 사용
+  const customAlert = useAlert();
 
   // 폼 제출 함수
   const onSubmit: SubmitHandler<SignupFormData> = async (data) => {
@@ -42,10 +44,10 @@ export default function SignupTemplate() {
     });
 
     if (response.ok) {
-      alert('회원가입 성공!');
+      customAlert("회원가입 되었습니다!");
       router.push('/');  // 회원가입 성공 후 로그인 페이지로 이동
     } else {
-      alert('회원가입 실패');
+      customAlert("이미 회원입니다")
     }
   };
 
@@ -67,7 +69,8 @@ export default function SignupTemplate() {
               <SignupInputLabel>이름</SignupInputLabel>
               <SignupInput
                 placeholder="이름을 입력해주세요"
-                {...register("name", { required: "이름을 입력해주세요" })}
+                {...register("name")}
+                required
               />
               {errors.name && <p>{errors.name.message}</p>}
             </SignupInputWrap>
@@ -77,12 +80,12 @@ export default function SignupTemplate() {
               <SignupInput
                 placeholder="이메일을 입력해주세요"
                 {...register("email", {
-                  required: "이메일을 입력해주세요",
                   pattern: {
                     value: /^\S+@\S+$/,
                     message: "유효한 이메일을 입력해주세요",
                   },
                 })}
+                required
               />
               {errors.email && <p>{errors.email.message}</p>}
             </SignupInputWrap>
@@ -91,7 +94,8 @@ export default function SignupTemplate() {
               <SignupInputLabel>아이디</SignupInputLabel>
               <SignupInput
                 placeholder="아이디를 입력해주세요"
-                {...register("username", { required: "아이디를 입력해주세요" })}
+                {...register("username")}
+                required
               />
               {errors.username && <p>{errors.username.message}</p>}
             </SignupInputWrap>
@@ -101,7 +105,8 @@ export default function SignupTemplate() {
               <SignupInput
                 type="password"
                 placeholder="비밀번호를 입력해주세요"
-                {...register("password", { required: "비밀번호를 입력해주세요" })}
+                {...register("password")}
+                required
               />
               {errors.password && <p>{errors.password.message}</p>}
             </SignupInputWrap>
