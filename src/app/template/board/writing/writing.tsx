@@ -18,6 +18,7 @@ import HeaderComponent from "@/component/header";
 import useAuth from "@/hooks/useAuth";
 import { createPost } from "@/app/lib/actions/post";
 import BackgroundImageComponent from "@/component/background";
+import { useAlert } from "@/component/comfirm-popup";
 
 interface FormData {
   title: string;
@@ -30,6 +31,7 @@ export default function BoardWritingTemplate() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // 카테고리를 하나만 선택하도록 변경
   const [categoryError, setCategoryError] = useState<string | null>(null);
   const categories = ["일상", "취미", "공부", "문화", "여행", "기타"];
+  const customAlert = useAlert();
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
@@ -45,7 +47,7 @@ export default function BoardWritingTemplate() {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     if (!selectedCategory) {
-      setCategoryError("카테고리를 선택해주세요");
+      customAlert("카테고리를 선택해주세요")
       return;
     }
 
@@ -54,7 +56,7 @@ export default function BoardWritingTemplate() {
       alert(result.message);
       window.location.href = "/main";
     } else {
-      alert(result.message);
+      customAlert("글쓰기를 실패했습니다");
     }
   };
 
@@ -89,7 +91,8 @@ export default function BoardWritingTemplate() {
             <FormLabel>제목</FormLabel>
             <FormInput
               placeholder="제목을 입력해주세요"
-              {...register("title", { required: "제목을 입력해주세요" })}
+              {...register("title")}
+              required
             />
             {errors.title && <p>{errors.title.message}</p>}
           </WritingForm>

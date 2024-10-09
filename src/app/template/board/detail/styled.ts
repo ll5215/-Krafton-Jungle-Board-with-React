@@ -1,3 +1,4 @@
+import { defaultTransition } from "@/app/css";
 import styled from "styled-components";
 
 export const BoardDetailContent = styled.div`
@@ -54,6 +55,17 @@ export const BoardDetailContentCommentCount = styled.div`
     color: #A8B1CE;
 `;
 
+export const BoardDetailContentBottomRight = styled.div`
+    display: flex;
+    gap: 24px;
+`;
+
+export const BoardDetailContentDelete = styled.div`
+    color: #D93F39;
+    font-weight: 700;
+    cursor: pointer;
+`;
+
 export const BoardDetailContentWriter = styled.div`
     color: #A8B1CE;
 `;
@@ -83,6 +95,11 @@ export const BoardDetailPostCommentButton = styled.button`
     font-weight: 600;
     line-height: 20px;
     cursor: pointer;
+
+    &:hover {
+    background-color: #4e61e8;
+    ${defaultTransition}
+    }
 `;
 
 export const BoardDetailPostCommentButtonText = styled.div`
@@ -102,6 +119,18 @@ export const BoardDetailCommentWriter = styled.div`
 export const BoardDetailCommentText = styled.div`
     color: #444444;
     line-height: 24px;
+`;
+
+export const BoardDetailCommentBottomRight = styled.div`
+    display: flex;
+    gap: 24px;
+`;
+
+export const BoardDetailCommentDelete = styled.div`
+    color: #D93F39;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
 `;
 
 export const BoardDetailCommentDate = styled.div`

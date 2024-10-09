@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import StyledComponentsRegistry from "./lib/regitstry";
-
+import { ConfirmPopupProvider } from "@/component/comfirm-popup";
 
 export const metadata: Metadata = {
   title: "어바웃 이트",
@@ -15,9 +15,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head></head> {/* head 태그 추가 */}
+      <body>
         <StyledComponentsRegistry>
-          <body>{children}</body>
+          <ConfirmPopupProvider> {/* ConfirmPopupProvider로 감싸기 */}
+            {children}
+          </ConfirmPopupProvider>
         </StyledComponentsRegistry>
+      </body>
     </html>
   );
 }

@@ -12,7 +12,6 @@ import {
   LoginLeftSection,
   LoginLink,
   LoginLinkContainer,
-  LoginLinkDivider,
   LoginPageBody,
   LoginPoint,
   LoginRightSection,
