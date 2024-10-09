@@ -6,6 +6,8 @@ import WritingCard from "@/component/postcard/writing-card";
 import HeaderComponent from "@/component/header";
 import useAuth from "@/hooks/useAuth";
 import BackgroundImageComponent from '@/component/background';
+import SkeletonMain from '@/component/skeleton/main';
+import EmptyMain from '@/component/empty';
 
 interface Post {
   id: number;
@@ -28,6 +30,7 @@ export default function MainTemplate() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1); // 현재 페이지
   const [selectedCategory, setSelectedCategory] = useState<string>("전체");
+  const [loading, setLoading] = useState(true); 
   const postsPerPage = 5; // 한 페이지에 표시할 게시물 수
 
   // 클라이언트에서 데이터 불러오기
@@ -36,6 +39,7 @@ export default function MainTemplate() {
       const response = await fetch("/api/posts/posts");  // API 엔드포인트 수정 필요
       const data = await response.json();
       setPosts(data);
+      setLoading(false); // 로딩 완료 시 상태 변경
     };
     
     fetchPosts();
@@ -58,7 +62,7 @@ export default function MainTemplate() {
     }
   };
 
-  //카테고리 변경 함수
+  // 카테고리 변경 함수
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
@@ -67,7 +71,7 @@ export default function MainTemplate() {
   return (
     <MainContainer>
       <HeaderComponent />
-    <BackgroundImageComponent />
+      <BackgroundImageComponent />
       <TitleSection>
         <h1>게시판 둘러보기</h1>
         <p>여기도 뭔가 글씨를 쓰면 이쁠것 같은데 뭐라고 써야할지 잘 <br></br>모르겠어요 그래서 아무말이나 일단 적는중입니다</p>
@@ -75,31 +79,37 @@ export default function MainTemplate() {
       <MainBottom>
         <CategorySection>
             {["전체", "일상", "취미", "공부","문화", "여행", "기타"].map((category) => (
-          <CategoryButton
+              <CategoryButton
                 key={category}
                 onClick={() => handleCategoryChange(category)}
-                selected = {selectedCategory === category}
-          >{category}</CategoryButton>
+                selected={selectedCategory === category}
+              >
+                {category}
+              </CategoryButton>
             ))}
         </CategorySection>
         <PostSection>
-          {currentPosts.length > 0 ? (
-            currentPosts.map((post) => (
-              <PostCard
-                key={post.id}
-                id={post.id}
-                category={post.category}
-                title={post.title}
-                content={post.content}
-                commentCount={post._count.comments}
-                writer={post.user.username}
-                createdAt={post.createdAt}
-              />
-            ))
+          {loading ? (
+            <SkeletonMain />
           ) : (
-            <p>게시물이 없습니다.</p>
+            currentPosts.length > 0 ? (
+              currentPosts.map((post) => (
+                <PostCard
+                  key={post.id}
+                  id={post.id}
+                  category={post.category}
+                  title={post.title}
+                  content={post.content}
+                  commentCount={post._count.comments}
+                  writer={post.user.username}
+                  createdAt={post.createdAt}
+                />
+              ))
+            ) : (
+              <EmptyMain />
+            )
           )}
-          <WritingCard />
+          {!loading && <WritingCard />}
         </PostSection>
         <Pagination
           totalPages={totalPages}
