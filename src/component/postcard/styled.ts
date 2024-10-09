@@ -6,11 +6,23 @@ export const Card = styled.div`
     background-color: white;
     width: 300px;
     height: 250px;
+    cursor: pointer;
+`;
+
+export const CardTop = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 export const CategoryTag = styled.div`
     color: #0070f3;
     font-weight: bold;
+`;
+
+export const CardDate = styled.div`
+    color: #999;
+    font-size: 12px;
 `;
 
 export const Title = styled.h3`
@@ -37,8 +49,19 @@ export const Description = styled.p`
     -webkit-box-orient: vertical;
 `;
 
+export const CardBottom = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+`;
+
 export const CommentCount = styled.div`
     color: #999;
     font-size: 12px;
-    margin-top: 16px;
+`;
+
+export const CardWriter = styled.div`
+    color: #999;
+    font-size: 12px;
 `;

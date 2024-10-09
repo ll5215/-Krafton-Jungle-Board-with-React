@@ -1,6 +1,6 @@
 export const createPost = async (title: string, content: string, category: string) => {
     try {
-      const response = await fetch("/api/posts", {
+      const response = await fetch("/api/posts/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

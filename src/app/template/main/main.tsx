@@ -12,6 +12,14 @@ interface Post {
   title: string;
   content: string;
   category: string;
+  createdAt: string;
+  user: {
+    id: number;
+    username: string;
+  }
+  _count: {
+    comments: number; 
+  } 
 }
 
 export default function MainTemplate() {
@@ -25,7 +33,7 @@ export default function MainTemplate() {
   // 클라이언트에서 데이터 불러오기
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch("/api/posts");  // API 엔드포인트 수정 필요
+      const response = await fetch("/api/posts/posts");  // API 엔드포인트 수정 필요
       const data = await response.json();
       setPosts(data);
     };
@@ -83,7 +91,9 @@ export default function MainTemplate() {
                 category={post.category}
                 title={post.title}
                 content={post.content}
-                commentCount={0}
+                commentCount={post._count.comments}
+                writer={post.user.username}
+                createdAt={post.createdAt}
               />
             ))
           ) : (

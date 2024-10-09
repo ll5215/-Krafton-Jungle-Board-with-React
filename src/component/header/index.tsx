@@ -1,3 +1,5 @@
+"use client"
+
 import { Header, Logo, Nav, NavButton } from "@/app/template/main/styled";
 import { useRouter } from "next/navigation";
 

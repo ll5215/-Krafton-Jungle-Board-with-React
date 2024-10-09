@@ -9,6 +9,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const posts = await prisma.post.findMany({
         include: {
           user: true,  // 작성자 정보도 포함
+          _count: {
+            select: { comments: true },  // 댓글 수를 가져옴
+          },
         },
       });
 
