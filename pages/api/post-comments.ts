@@ -1,4 +1,3 @@
-// pages/api/post-comments.ts
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -14,6 +13,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           content,
           postId: Number(postId),
           userId: Number(userId),
+        },
+        include: {
+          user: true,  // 댓글과 함께 작성자의 정보도 포함
         },
       });
 

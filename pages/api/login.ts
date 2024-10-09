@@ -17,7 +17,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // 쿠키 설정 (사용자 ID를 저장)
-      res.setHeader('Set-Cookie', `user=${user.id}; HttpOnly; Path=/; Max-Age=3600;`);
+      res.setHeader('Set-Cookie', `user=${user.id}; Path=/; Max-Age=3600; SameSite=Lax`);
+
 
       return res.status(200).json({ message: '로그인 성공!' });
     } catch {

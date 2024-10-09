@@ -87,7 +87,7 @@ export default function MainTemplate() {
                 {category}
               </CategoryButton>
             ))}
-        </CategorySection>
+    </CategorySection>
         <PostSection>
           {loading ? (
             <SkeletonMain />
