@@ -122,6 +122,16 @@ export default function BoardDetailTemplate() {
     }
   }, [id]);
 
+  function formatNewline(text: string) {
+    return text.split("\n").map((line, index) => (
+      <span key={index}>
+        {line}
+        <br />
+      </span>
+    ));
+  }
+  
+
   const onSubmit: SubmitHandler<CommentForm> = async (data) => {
     const userId = getCookie("user"); // 쿠키에서 userId 가져오기
     if (!userId) {
@@ -219,7 +229,7 @@ export default function BoardDetailTemplate() {
               </BoardDetailContentTopWrap>
               <BoardDetailContentTitle>{post.title}</BoardDetailContentTitle>
             </BoardDetailContentTop>
-            <BoardDetailContentText>{post.content}</BoardDetailContentText>
+            <BoardDetailContentText>{formatNewline(post.content)}</BoardDetailContentText>
             <BoardDetailContentBottom>
               <BoardDetailContentCommentCount>{post._count.comments} comments</BoardDetailContentCommentCount>
               <BoardDetailContentBottomRight>
@@ -257,7 +267,7 @@ export default function BoardDetailTemplate() {
                   </BoardDetailCommentBottomRight>
                 )}
               </BoardDetailCommentTop>
-              <BoardDetailCommentText>{comment.content}</BoardDetailCommentText>
+              <BoardDetailCommentText>{formatNewline(comment.content)}</BoardDetailCommentText>
             </BoardDetailComment>
           ))}
         </>

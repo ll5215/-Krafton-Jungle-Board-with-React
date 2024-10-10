@@ -33,17 +33,22 @@ export default function MainTemplate() {
   const [loading, setLoading] = useState(true); 
   const postsPerPage = 5; // 한 페이지에 표시할 게시물 수
 
-  // 클라이언트에서 데이터 불러오기
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("/api/posts/posts");  // API 엔드포인트 수정 필요
-      const data = await response.json();
-      setPosts(data);
-      setLoading(false); // 로딩 완료 시 상태 변경
-    };
-    
-    fetchPosts();
-  }, []);
+// 클라이언트에서 데이터 불러오기
+useEffect(() => {
+  const fetchPosts = async () => {
+    const response = await fetch("/api/posts/posts");  // API 엔드포인트 수정 필요
+    const data = await response.json();
+
+    // 최신 날짜가 위로 오도록 정렬
+    const sortedPosts = data.sort((a: Post, b: Post) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+    setPosts(sortedPosts);
+    setLoading(false); // 로딩 완료 시 상태 변경
+  };
+  
+  fetchPosts();
+}, []);
+
 
   const filteredPosts = selectedCategory === "전체"
   ? posts
