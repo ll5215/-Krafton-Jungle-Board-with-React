@@ -53,7 +53,6 @@ export default function BoardWritingTemplate() {
 
     const result = await createPost(data.title, data.content, selectedCategory);
     if (result.success) {
-      alert(result.message);
       window.location.href = "/main";
     } else {
       customAlert("글쓰기를 실패했습니다");
